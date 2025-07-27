@@ -1,0 +1,71 @@
+#==== Specific files and directories to ignore in the backend directory ====
+
+# Linter configuration
+ruff.toml
+
+# ====== Common dockerignore ======
+
+# Tests
+tests/
+
+# Docs
+README.md
+
+# Docker configuration
+docker
+.dockerignore
+
+# Environment configuration
+.env.example
+
+#====== Global .gitignore content ======#
+
+
+# JetBrains IDEs (IntelliJ IDEA, PyCharm, WebStorm etc.)
+**.idea/
+
+# VSCode IDE
+**.vscode/*
+
+# Ignore all .env files
+**.env
+
+# Ignore all db files
+***.db
+
+
+#====== Backend specific files and directories to ignore ======#
+
+# Specific files and directories to ignore in the backend directory
+# Should be reflected to docker/.dockerignore
+
+# Python-generated files
+**__pycache__/
+***.py[oc]
+**build/
+**dist/
+**wheels/
+***.egg-info
+**.pytest_cache/
+**.ruff_cache/
+
+# Virtual environments
+**.venv/
+
+#====== Frontend specific files and directories to ignore ======#
+
+# Logs
+**logs
+***.log
+**node_modules
+**dist
+**dist-ssr
+***.local
+
+# Editor directories and files
+**.DS_Store
+***.suo
+***.ntvs*
+***.njsproj
+***.sln
+***.sw?

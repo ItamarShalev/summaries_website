@@ -1,0 +1,45 @@
+name: CI - Backend
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Backend Machine
+        uses: ./.github/actions/setup-backend-machine
+
+      - name: Run Lint
+        run: uv run pre-commit run backend-lint
+
+  pytest:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Backend Machine
+        uses: ./.github/actions/setup-backend-machine
+
+      - name: Run Tests
+        run: uv run pre-commit run backend-tests
+
+  static-check:
+    name: Static Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Backend Machine
+        uses: ./.github/actions/setup-backend-machine
+
+      - name: Run Static Check
+        run: uv run pre-commit run backend-static-check

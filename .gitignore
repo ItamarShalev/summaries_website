@@ -1,0 +1,54 @@
+
+#====== Global .gitignore content ======#
+
+
+# JetBrains IDEs (IntelliJ IDEA, PyCharm, WebStorm etc.)
+**/.idea/
+
+# VSCode IDE
+**/.vscode/*
+# Keep extensions.json for VSCode settings which recommend extensions for the project
+!**/.vscode/extensions.json
+
+# Ignore all .env files
+**/.env
+
+# Ignore all db files
+**/*.db
+
+
+#====== Backend specific files and directories to ignore ======#
+
+# Specific files and directories to ignore in the backend directory
+# Should be reflected to docker/.dockerignore
+
+# Python-generated files
+**/__pycache__/
+**/*.py[oc]
+**/build/
+**/dist/
+**/wheels/
+**/*.egg-info
+**/.pytest_cache/
+**/.ruff_cache/
+
+# Virtual environments
+**/.venv/
+
+#====== Frontend specific files and directories to ignore ======#
+
+# Logs
+**/logs
+**/*.log
+**/node_modules
+**/dist
+**/dist-ssr
+**/*.local
+
+# Editor directories and files
+**/.DS_Store
+**/*.suo
+**/*.ntvs*
+**/*.njsproj
+**/*.sln
+**/*.sw?

@@ -1,0 +1,12 @@
+{
+  "not_found": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you're looking for doesn't exist.",
+    "button": "Go Home"
+  },
+  "healthy": {
+    "loading": "Checking server...",
+    "success": "The server is running and responding correctly.",
+    "error": "The server is not responding."
+  }
+}

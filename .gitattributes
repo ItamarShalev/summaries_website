@@ -1,0 +1,10 @@
+# Apply LF line endings to all text files
+* text=auto eol=lf
+
+# Explicitly mark images and other binary files to exclude them from line ending normalization
+*.db binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

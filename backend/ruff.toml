@@ -1,0 +1,102 @@
+target-version = "py313"
+line-length = 120
+respect-gitignore = true
+indent-width = 4
+extend-include = [
+    "*.py",
+]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+[lint]
+select = [
+    "E",
+    "F",
+    "W",
+    "N",
+    "B",
+    "C4",
+    "I",
+    "PT",
+    "RET",
+    "ARG",
+    "PL",
+    "D",
+    "UP",
+    "SIM",
+    "T20",
+    "TRY",
+]
+
+ignore = [
+    "D100", # Missing docstring in public module
+    "D101", # Missing docstring in public class
+    "D102", # Missing docstring in public method
+    "D103", # Missing docstring in public function
+    "D104", # Missing docstring in public package
+    "D203", # Conflicts with D211
+    "D213", # Conflicts with D212
+    "TRY003", # Message inside exception
+]
+
+fixable = [
+    "ALL",
+]
+unfixable = [
+    "ALL",
+]
+
+[lint.per-file-ignores]
+"__init__.py" = [
+    "F401",
+]
+"tests/*" = [
+    "PLR2004"
+]
+
+[lint.flake8-unused-arguments]
+ignore-variadic-names = true
+
+[lint.isort]
+known-third-party = [
+    "enchant",
+]
+
+[lint.mccabe]
+max-complexity = 10
+
+[lint.pylint]
+max-args = 5
+max-returns = 6
+max-branches = 12
+max-statements = 50
+max-public-methods = 20
+max-locals = 15
+max-bool-expr = 5
+max-nested-blocks = 5

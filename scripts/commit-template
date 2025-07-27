@@ -1,0 +1,37 @@
+
+# Commit Message Template - No need to delete the comments, they are for guidance only.
+# In order to use this template in your git commits,
+# save this file as `.gitmessage` in your home directory or project root.
+# Or configure git to use this template by running:
+# git config commit.template scripts/commit-template
+#
+# Structure:
+# [BUGFIX] <component>: <sub-component>: <subject>
+# [optional body]
+# fixes=<sha1/unknown> issue=<issue_number/none>
+# Signed-off-by: Your Name <email>
+#
+# Rules:
+# - Use imperative mood in the subject (e.g., "Add", "Fix", "Update", not "Added", "Fixed", "Updated")
+# - Lines must be no more than 72 characters (excluding "Revert" if present)
+# - For bug fixes, prefix with [BUGFIX] and include fixes=<full_sha1/unknown>
+# - Always add a Signed-off-by line (use `git commit -s`)
+#
+# Commit Message Guidelines:
+# - The title should clearly explain what this patch does.
+# - Subject should start with a capital letter.
+# - The body should provide details on why the change is needed and any additional context.
+#
+# Components examples:
+# - backend
+# - frontend
+# - scripts
+# - docs
+# - workflows
+#
+# Title Examples:
+# [BUGFIX] backend: auth: Fix user authentication issue
+# backend: healthy: Improve health check endpoint
+# scripts: check_commit_message: Add commit message validation
+#
+# -------------------- Write your commit message below --------------------

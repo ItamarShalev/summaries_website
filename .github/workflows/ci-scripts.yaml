@@ -1,0 +1,38 @@
+name: CI - Scripts
+
+on:
+  push:
+  pull_request:
+
+defaults:
+  run:
+    working-directory: backend
+    shell: bash
+
+jobs:
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python and uv Machine
+        uses: ./.github/actions/setup-backend-machine
+
+      - name: Run Linter
+        run: uv run ruff check ../scripts
+
+  static-check:
+    name: Static Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python and uv Machine
+        uses: ./.github/actions/setup-backend-machine
+
+      - name: Run Static Check
+        run: uv run ty check ../scripts

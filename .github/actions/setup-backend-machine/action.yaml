@@ -1,0 +1,35 @@
+# This GitHub Action sets up the backend environment for development or CI/CD workflows.
+# The action ensures Python and uv are installed, and project dependencies are synchronized.
+
+name: Setup Backend Machine
+description: Set up Python, uv and install dependencies
+
+runs:
+  using: "composite"
+  steps:
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "backend/pyproject.toml"
+
+      - name: Verify uv.lock Python version matches pyproject.toml
+        shell: bash
+        run: cd backend && uv lock --locked
+
+      - name: Install dependencies
+        shell: bash
+        run: cd backend && uv sync --locked --all-extras --dev
+
+      - name: Set VIRTUAL_ENV
+        shell: bash
+        run: |
+          cd backend
+          echo "Setting up VIRTUAL_ENV"
+          export VIRTUAL_ENV=$(pwd)/.venv
+          echo "VIRTUAL_ENV set to $VIRTUAL_ENV"
+          echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV

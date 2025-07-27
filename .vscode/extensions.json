@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+    "codezombiech.gitignore",
+    "eamodio.gitlens",
+    "waderyan.gitblame",
+    "usernamehw.errorlens",
+    "oderwat.indent-rainbow",
+    "VisualStudioExptTeam.vscodeintellicode",
+    "alefragnani.numbered-bookmarks",
+    "github.vscode-github-actions",
+    "ms-azuretools.vscode-docker",
+    "vscode-icons-team.vscode-icons"
+  ],
+}

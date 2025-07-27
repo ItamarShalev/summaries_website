@@ -1,0 +1,90 @@
+repos:
+  - repo: local
+    hooks:
+      - id: commit-message
+        name: "commit_message: Commit message check"
+        entry: uv run commit-check --message --author-name --author-email --commit-signoff --config scripts/.commit-check.yaml
+        language: python
+        pass_filenames: false
+        always_run: true
+
+      - id: commit-message
+        name: "commit_message: BUGFIX must include fixes=sha1|unknown"
+        entry: uv run scripts/check_commit_message.py --bugfix_check
+        language: python
+        pass_filenames: true
+        always_run: true
+
+      - id: commit-message
+        name: "commit_message: All commit message lines must be <= 72 chars"
+        entry: uv run scripts/check_commit_message.py --length
+        language: python
+        pass_filenames: true
+        always_run: true
+
+      - id: scripts
+        alias: scripts-lint
+        name: "scripts: uv run ruff check"
+        entry: bash -c "cd backend && uv run ruff check ../scripts"
+        language: python
+        pass_filenames: false
+        always_run: true
+
+      - id: scripts
+        alias: scripts-static-check
+        name: "scripts: uv run ty check"
+        entry: bash -c "cd backend && uv run ty check ../scripts"
+        language: python
+        pass_filenames: false
+        always_run: true
+
+      - id: backend
+        alias: backend-lint
+        name: "backend: uv run ruff check"
+        entry: bash -c "cd backend && uv run ruff check"
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
+
+      - id: backend
+        alias: backend-static-check
+        name: "backend: uv run ty check"
+        entry: bash -c "cd backend && uv run ty check"
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
+
+      - id: backend
+        alias: backend-tests
+        name: "backend: uv run pytest"
+        entry: bash -c "cd backend && uv run pytest"
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
+
+      - id: frontend
+        alias: frontend-build
+        name: "frontend: pnpm build"
+        entry: bash -c "cd frontend && pnpm build"
+        language: system
+        always_run: true
+        pass_filenames: false
+
+      - id: frontend
+        alias: frontend-lint
+        name: "frontend: pnpm lint"
+        entry: bash -c "cd frontend && pnpm lint"
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: frontend
+        alias: frontend-tests
+        name: "frontend: pnpm test"
+        entry: bash -c "cd frontend && pnpm test"
+        language: system
+        pass_filenames: false
+        always_run: true

@@ -1,0 +1,106 @@
+name: Wait for Workflows
+
+on:
+  workflow_call:
+    inputs:
+      workflow_files:
+        description: "List of workflow file names (one per line) to check"
+        required: true
+        type: string
+      allowed_conclusions:
+        description: "Comma-separated list of allowed conclusions (e.g., success,skipped)"
+        required: false
+        default: "success,skipped"
+        type: string
+      interval_seconds:
+        description: "Interval between checks, in seconds"
+        required: false
+        default: 10
+        type: number
+      timeout_minutes:
+        description: "Timeout in minutes"
+        required: false
+        default: 5
+        type: number
+    outputs:
+      all_passed:
+        description: "True if all workflows finished with an allowed conclusion"
+        value: ${{ jobs.wait.outputs.all_passed }}
+
+jobs:
+  wait:
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout_minutes }}
+    outputs:
+      # Ignore the warning: "Context access might be invalid: all_passed"
+      # This is always set by the script, even if errors happen, ignore the warning.
+      all_passed: ${{ steps.checks.outputs.all_passed }}
+    steps:
+      - name: Wait for all workflows
+        id: checks
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.setOutput('all_passed', 'false');
+
+            const allowedConclusions = '${{ inputs.allowed_conclusions }}'.split(',').map(x => x.trim());
+            const workflowFiles = `${{ inputs.workflow_files }}`.split('\n').map(x => x.trim()).filter(Boolean);
+            const interval = Number('${{ inputs.interval_seconds }}') * 1000;
+            const timeout = Number('${{ inputs.timeout_minutes }}') * 60 * 1000;
+            const startedAt = Date.now();
+
+            const run_id = process.env.GITHUB_RUN_ID;
+
+            async function getLatestWorkflowRun(workflowFile) {
+              const resp = await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: workflowFile,
+                branch: context.ref.replace('refs/heads/', ''),
+                event: context.eventName,
+                per_page: 5
+              });
+              return resp.data.workflow_runs
+                .filter(run => String(run.id) !== String(run_id))
+                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
+            }
+
+            let allDone = false;
+            let allPassed = false;
+
+            while (Date.now() - startedAt < timeout) {
+              core.info(`Checking workflows: [${workflowFiles.join(', ')}]`);
+              let statuses = [];
+              for (const wf of workflowFiles) {
+                const run = await getLatestWorkflowRun(wf);
+                if (!run) {
+                  statuses.push({workflow: wf, status: 'not_found'});
+                  continue;
+                }
+                if (run.status !== 'completed') {
+                  statuses.push({workflow: wf, status: run.status});
+                  continue;
+                }
+                if (!allowedConclusions.includes(run.conclusion)) {
+                  statuses.push({workflow: wf, status: `conclusion=${run.conclusion}`});
+                  continue;
+                }
+                statuses.push({workflow: wf, status: 'passed'});
+              }
+
+              for (const status of statuses) {
+                core.info(`Workflow status: ${status.workflow} -> ${status.status}`);
+              }
+
+              allDone = statuses.every(s => s.status === 'passed');
+              if (allDone) {
+                allPassed = true;
+                break;
+              }
+              await new Promise(res => setTimeout(res, interval));
+            }
+
+            core.setOutput('all_passed', allPassed ? 'true' : 'false');
+            if (!allPassed) {
+              core.setFailed('Not all workflows completed successfully within the timeout.');
+            }

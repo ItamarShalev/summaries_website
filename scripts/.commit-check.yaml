@@ -1,0 +1,60 @@
+checks:
+  - check: message
+    regex: '^(\[BUGFIX\]\s+)?([A-Za-z0-9_\-]+: )([A-Za-z0-9_\-]+: )?[A-Z][^ ]{0,71}'
+    error: |
+
+      The commit message should be structured as follows:
+
+      [BUGFIX] (for bug fixes, required) <component>: <sub-component>: <subject>
+      [optional body]
+      (for bug fixes, required at end of body) fixes=<sha1/unknown> issue=<issue_number/none>
+
+      Add Signed-off-by: Your Name <email> (use git commit -s)
+
+      Examples:
+
+      [BUGFIX] backend: auth: Fix user authentication issue
+      backend: healthy: Improve health check endpoint
+      scripts: commit_check: Add commit message validation
+
+    suggest: |
+
+      Please check your commit message matches the required format:
+      [BUGFIX] <component>: <sub-component>: <subject> (up to 72 chars)
+      [optional body]
+      fixes=<sha1/unknown> issue=<issue_number/none>
+      Signed-off-by: Your Name <email>
+
+  - check: author_name
+    regex: ^[A-Z][a-z]+( [A-Z][a-z]+){1,}$
+    error: The committer name seems invalid
+    suggest: run command `git config user.name "Your Name"`
+
+  - check: author_email
+    regex: ^.+@.+$
+    error: The committer email seems invalid
+    suggest: run command `git config user.email yourname@example.com`
+
+  - check: commit_signoff
+    regex: "Signed-off-by: [A-Z][a-z]+( [A-Z][a-z]+){1,} <.+@.+>"
+    error: |
+
+      Signed-off-by not found in latest commit.
+
+      Every commit must be signed off to certify authorship.
+      Please add a line at the end of your commit message:
+
+      Signed-off-by: Your Name <email>
+
+      Example:
+      Signed-off-by: John Doe <john.doe@example.com>
+    suggest: |
+
+      - If the commit is missing a Signed-off-by line, run:
+          `git commit --amend -s --no-edit`
+
+      - If the Signed-off-by line exists but is not in the correct format:
+          1. Update your Git user name:
+         `git config user.name "Your Name"`
+          2. Amend your commit and fix the sign-off line manually:
+         `git commit --amend -s`

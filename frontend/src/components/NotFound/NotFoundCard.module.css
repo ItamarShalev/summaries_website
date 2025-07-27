@@ -1,0 +1,58 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%);
+  color: #1e293b;
+  font-family: "Segoe UI", sans-serif;
+  z-index: 9999;
+}
+
+.card {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(30, 41, 59, 0.12);
+  padding: 3rem 4rem;
+  min-width: 340px;
+  max-width: 90vw;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+.title {
+  font-size: 5rem;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: #2563eb;
+  text-shadow: 0 2px 16px rgba(37, 99, 235, 0.08);
+}
+
+.subtitle {
+  font-size: 2rem;
+  margin: 1rem 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.description {
+  margin-bottom: 2rem;
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+.link {
+  padding: 0.9rem 2.2rem;
+  background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+  color: #fff;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+  transition: background 0.2s, box-shadow 0.2s;
+}

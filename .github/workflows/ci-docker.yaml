@@ -1,0 +1,22 @@
+name: CI - Docker
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-development:
+    name: Build Development
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Enable BuildKit
+        run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+
+      - name: Build Development docker image
+        run: docker compose -f docker-compose.yaml build --progress=plain

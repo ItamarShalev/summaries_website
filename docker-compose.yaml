@@ -1,0 +1,28 @@
+services:
+  backend:
+    container_name: summaries_backend
+    build:
+      context: ./backend
+      dockerfile: docker/development.dockerfile
+    volumes:
+      - ./backend/src:/app/src
+    ports:
+      - "8000:8000"
+    env_file:
+      - backend/.env.example
+    restart: always
+
+  frontend:
+    container_name: summaries_frontend
+    build:
+      context: ./frontend
+      dockerfile: docker/development.dockerfile
+    volumes:
+      - ./frontend/src:/app/src
+    env_file:
+      - frontend/.env.example
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always

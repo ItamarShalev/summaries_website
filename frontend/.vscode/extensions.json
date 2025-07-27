@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "antfu.vite",
+    "OfHumanBondage.react-proptypes-intellisense",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "rvest.vs-code-prettier-eslint",
+  ],
+}
