@@ -7,28 +7,62 @@ Built by students, for students — fully open-source and community-driven.
 
 ## 🚀 Features
 
-- Browse and share well-organized academic summaries  
-- Built by students — open-source and community-driven  
-- Modern frontend + backend architecture  
-- Easy to run with Docker and Docker Compose  
+-A simple way to browse and share course summaries with others
+
+-Built by students from different universities,open and community-driven
+
+-Makes it easy to find helpful notes and share your own with others
+
+-Clean separation between frontend and backend for smoother development
+
+-Easy to get started locally with Docker and Docker Compose
 
 ---
+
+## 📂 Project structure
+
+```text
+.
+├── backend/
+│   ├── Dockerfile
+│   └── …
+├── frontend/
+│   ├── Dockerfile
+│   └── …
+├── docker-compose.yml
+└── README.md
+```
+
+---
+
+## 🏗️ Docker best practices
+- Keep images slim with a `.dockerignore` (exclude `node_modules/`, `venv/`, build artefacts).
+- Use official, minimal base images (e.g., `python:3.12-slim`, `node:20-alpine`) to reduce CVEs.
+- Leverage multi-stage builds for better layer caching and smaller final images.
 
 ## 🛠 Tech Stack
 
 - **Frontend**: React + Vite + pnpm  
-- **Backend**: FastAPI + uvicorn  
-- **Package Managers**: `pnpm`, `uv`  
+- **Backend**: FastAPI + uvicorn 
+- **Package Managers**: pnpm, uv  
 - **Containerization**: Docker & Docker Compose  
 
 ---
 
-## ✅ Prerequisites
+## 🛠 Setup Instructions
 
-Make sure you have the following installed:
+To run the project locally, make sure you have the following installed:
 
 - [Docker](https://www.docker.com/products/docker-desktop)  
 - [Docker Compose](https://docs.docker.com/compose/install/)  
+- [pnpm](https://pnpm.io/installation) (for frontend development)  
+- [uv](https://github.com/charliermarsh/uv) (for backend development)
+
+Once you’ve got the tools, you can check out the individual setup guides for each part of the project:
+
+
+- [Frontend Setup Instructions](https://github.com/ItamarShalev/summaries_website/blob/main/frontend/README.md)
+-  [Backend Setup Instructions](https://github.com/ItamarShalev/summaries_website/blob/main/backend/README.md)
 
 ---
 
@@ -40,20 +74,10 @@ git clone https://github.com/ItamarShalev/summaries_website.git
 cd summaries_website
 
 # 2. Build and run the containers
-docker-compose up --build
+docker compose up --build
 
 # 3. To stop
-docker-compose down
-
----
-
-🤝 Contributing
-We welcome contributions from students and developers!
-Feel free to fork, create a branch, and open a PR.
-
----
-
-📄 License
-This project is open-source under the MIT License.
+docker compose down
+```
 
 ---
