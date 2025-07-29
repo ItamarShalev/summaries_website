@@ -9,29 +9,13 @@ Built by students, for students — fully open-source and community-driven.
 
 -A simple way to browse and share course summaries with others
 
--Built by students from different universities,open and community-driven
+-Built by students from different universities, open and community-driven
 
 -Makes it easy to find helpful notes and share your own with others
 
 -Clean separation between frontend and backend for smoother development
 
 -Easy to get started locally with Docker and Docker Compose
-
----
-
-## 📂 Project structure
-
-```text
-.
-├── backend/
-│   ├── Dockerfile
-│   └── …
-├── frontend/
-│   ├── Dockerfile
-│   └── …
-├── docker-compose.yml
-└── README.md
-```
 
 ---
 
@@ -55,8 +39,6 @@ To run the project locally, make sure you have the following installed:
 
 - [Docker](https://www.docker.com/products/docker-desktop)  
 - [Docker Compose](https://docs.docker.com/compose/install/)  
-- [pnpm](https://pnpm.io/installation) (for frontend development)  
-- [uv](https://github.com/charliermarsh/uv) (for backend development)
 
 Once you’ve got the tools, you can check out the individual setup guides for each part of the project:
 
