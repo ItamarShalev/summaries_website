@@ -44,7 +44,7 @@ Once you’ve got the tools, you can check out the individual setup guides for e
 
 
 - [Frontend Setup Instructions](https://github.com/ItamarShalev/summaries_website/blob/main/frontend/README.md)
--  [Backend Setup Instructions](https://github.com/ItamarShalev/summaries_website/blob/main/backend/README.md)
+- [Backend Setup Instructions](https://github.com/ItamarShalev/summaries_website/blob/main/backend/README.md)
 
 ---
 

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Google API Credentials Setup Guide</title>
+    <!-- Chosen Palette: Developer Blue -->
+    <!-- Application Structure Plan: A single-page, vertical wizard/checklist. Each major step from the source doc is a separate section. This structure directly mirrors the procedural nature of the task, turning a static guide into an active tool. Interactivity is provided through checkboxes for progress tracking and copy-to-clipboard buttons for code snippets, enhancing usability and reducing errors. This linear flow is the most intuitive way for a user to follow a multi-step technical process. -->
+    <!-- Visualization & Content Choices: The content is procedural, so traditional data visualization is not applicable. Instead, the "visualization" is the interactive structure itself. Key information is presented in sections with clear headings. Goal: Inform/Guide. Method: Styled text, lists, and code blocks. Interaction: Checkboxes to mark completion and buttons to copy code. Justification: This approach makes a technical walkthrough less passive and more engaging, helping the user keep track of their place and easily use the provided commands. Library/Method: Vanilla JS for interactions. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .step-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0; /* slate-200 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .step-number {
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+        .custom-checkbox:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .custom-checkbox:checked::after {
+            content: '✔';
+            color: white;
+            display: block;
+            text-align: center;
+            font-size: 0.8rem;
+            line-height: 1.25rem;
+        }
+        code {
+            background-color: #f1f5f9; /* slate-100 */
+            color: #1e293b; /* slate-800 */
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+        }
+        .code-block {
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: #475569; /* slate-600 */
+            color: white;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .copy-btn:hover {
+            background-color: #64748b; /* slate-500 */
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div class="container mx-auto max-w-4xl px-4 py-8 md:py-12">
+
+        <header class="text-center mb-10 md:mb-16">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">🔐 Google API Credentials Setup</h1>
+            <p class="text-lg text-slate-600">An interactive guide to creating and storing your web app credentials.</p>
+        </header>
+
+        <div class="space-y-8">
+            <!-- Step 1 -->
+            <section id="step1" class="step-card p-6 md:p-8">
+                <div class="flex items-start space-x-4">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-800 mb-3">Create or Select Your Google Cloud Project</h2>
+                        <p class="mb-4">First, you'll need a Google Cloud project to manage your application. This project will house all your APIs, credentials, and settings.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s1-c1">
+                                <label for="s1-c1" class="flex-1">Navigate to the <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" class="font-medium text-blue-600 hover:underline">Google Cloud Console</a>.</label>
+                            </li>
+                            <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s1-c2">
+                                <label for="s1-c2" class="flex-1">In the top menu, click the project dropdown. If you have an existing project, select it. If not, click <strong>"New Project"</strong> and follow the prompts to create one. Be sure to give it a descriptive name.</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2 -->
+            <section id="step2" class="step-card p-6 md:p-8">
+                <div class="flex items-start space-x-4">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-800 mb-3">Configure the OAuth Consent Screen</h2>
+                        <p class="mb-4">The OAuth consent screen is what users will see when they are asked to authorize your application to access their data.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s2-c1">
+                                <label for="s2-c1" class="flex-1">From the console's navigation menu, go to <strong>"APIs & Services"</strong> > <strong>"OAuth consent screen"</strong>.</label>
+                            </li>
+                            <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s2-c2">
+                                <label for="s2-c2" class="flex-1">Choose <strong>"External"</strong> as the user type, then click <strong>"Create"</strong>.</label>
+                            </li>
+                            <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s2-c3">
+                                <label for="s2-c3" class="flex-1">Fill in the required information: <strong>App name</strong>, <strong>User support email</strong>, and <strong>Developer contact information</strong>.</label>
+                            </li>
+                             <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s2-c4">
+                                <label for="s2-c4" class="flex-1">Click <strong>"Save and continue"</strong> through the next sections. You can configure scopes and test users later if needed.</label>
+                            </li>
+                             <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s2-c5">
+                                <label for="s2-c5" class="flex-1">On the "Summary" page, review the information and click <strong>"Back to dashboard"</strong>.</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3 -->
+            <section id="step3" class="step-card p-6 md:p-8">
+                <div class="flex items-start space-x-4">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-800 mb-3">Create Web Application Credentials</h2>
+                        <p class="mb-4">Now you will generate the specific client ID and client secret that your web application will use to authenticate with Google's APIs.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s3-c1">
+                                <label for="s3-c1" class="flex-1">From the console's navigation menu, go to <strong>"APIs & Services"</strong> > <strong>"Credentials"</strong>.</label>
+                            </li>
+                            <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s3-c2">
+                                <label for="s3-c2" class="flex-1">Click on <strong>"+ CREATE CREDENTIALS"</strong> and select <strong>"OAuth client ID"</strong>.</label>
+                            </li>
+                            <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s3-c3">
+                                <label for="s3-c3" class="flex-1">For the "Application type", choose <strong>"Web application"</strong>.</label>
+                            </li>
+                             <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s3-c4">
+                                <label for="s3-c4" class="flex-1">Under "Authorized JavaScript origins", add the URL where your app runs locally. In our case: <code>http://localhost:8000</code></label>
+                            </li>
+                             <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s3-c5">
+                                <label for="s3-c5" class="flex-1">Under "Authorized redirect URIs", add the callback URL. In our case: <code>http://localhost:8000/api/v1/auth/google</code></label>
+                            </li>
+                             <li class="flex items-start">
+                                <input type="checkbox" class="custom-checkbox appearance-none w-5 h-5 border-2 border-slate-300 rounded-md mt-1 mr-3 flex-shrink-0 cursor-pointer" id="s3-c6">
+                                <label for="s3-c6" class="flex-1">Click <strong>"Create"</strong> and save the <strong>Client ID</strong> and <strong>Client Secret</strong> shown in the popup.</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4 -->
+            <section id="step4" class="step-card p-6 md:p-8">
+                <div class="flex items-start space-x-4">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-slate-800 mb-3">Set Credentials as Environment Variables</h2>
+                        <p class="mb-4">For security, you should never hard-code credentials in your code. Store them as environment variables on your computer. This prevents them from being accidentally exposed in your version control history.</p>
+                        
+                        <div class="mt-6">
+                            <h3 class="font-semibold text-slate-800 mb-2">On macOS or Linux</h3>
+                            <p class="text-sm mb-3">To make these variables permanent, add the `export` lines to your shell's startup file (e.g., <code>~/.zshrc</code> or <code>~/.bashrc</code>).</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'macos-code')">Copy</button>
+                                <pre id="macos-code">export GOOGLE_CREDENTIALS_SUMMARIES_WEBSITE_CLIENT_ID="YOUR_CLIENT_ID"
+export GOOGLE_CREDENTIALS_SUMMARIES_WEBSITE_CLIENT_SECRET="YOUR_CLIENT_SECRET"</pre>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <h3 class="font-semibold text-slate-800 mb-2">On Windows</h3>
+                            <p class="text-sm mb-3">Use the Command Prompt or PowerShell to set your environment variables permanently using the <code>setx</code> command. You must restart your terminal for these changes to take effect.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'windows-code')">Copy</button>
+                                <pre id="windows-code">setx GOOGLE_CREDENTIALS_SUMMARIES_WEBSITE_CLIENT_ID "YOUR_CLIENT_ID"
+setx GOOGLE_CREDENTIALS_SUMMARIES_WEBSITE_CLIENT_SECRET "YOUR_CLIENT_SECRET"</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(button, elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>

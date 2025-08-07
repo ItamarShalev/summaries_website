@@ -68,3 +68,8 @@ uv add <package_name> --dev
 ```bash
 uv add <package_name>
 ```
+
+## 6. Setup Google Application for development
+To get started with the Google API setup, please follow our interactive guide.
+
+[Open  Setup Guide](google-auth-setup-guide.html)
